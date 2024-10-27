@@ -6,6 +6,8 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import * as styles from "../components/index.module.css"
 
+import { Helmet } from "react-helmet";
+
 const links = [
   {
     text: "Tutorial",
@@ -70,52 +72,66 @@ const moreLinks = [
 const utmParameters = `?utm_source=starter&utm_medium=start-page&utm_campaign=default-starter`
 
 const IndexPage = () => (
+      <><div>
+    <Helmet>
+      <title>Your Site Title</title>
+      <meta name="description" content="A brief description of your site." />
+      <meta name="keywords" content="esports, gaming, news" />
+      <meta name="author" content="Your Name" />
+      {/* Open Graph tags */}
+      <meta property="og:title" content="Your Site Title" />
+      <meta property="og:description" content="A brief description of your site." />
+      <meta property="og:image" content="URL_to_image" />
+      <meta property="og:url" content="https://your-site-url.com" />
+    </Helmet>
+    <h1>Welcome to My Esports Site</h1>
+    {/* Page content */}
+  </div>
   <Layout>
-    <div className={styles.textCenter}>
-      <StaticImage
-        src="../images/example.png"
-        loading="eager"
-        width={64}
-        quality={95}
-        formats={["auto", "webp", "avif"]}
-        alt=""
-        style={{ marginBottom: `var(--space-3)` }}
-      />
-      <h1>
-        Welcome to <b>Gatsby!</b>
-      </h1>
-      <p className={styles.intro}>
-        <b>Example pages:</b>{" "}
-        {samplePageLinks.map((link, i) => (
-          <React.Fragment key={link.url}>
-            <Link to={link.url}>{link.text}</Link>
-            {i !== samplePageLinks.length - 1 && <> · </>}
-          </React.Fragment>
+      <div className={styles.textCenter}>
+        <StaticImage
+          src="../images/example.png"
+          loading="eager"
+          width={64}
+          quality={95}
+          formats={["auto", "webp", "avif"]}
+          alt=""
+          style={{ marginBottom: `var(--space-3)` }} />
+        <h1>
+          Welcome to <b>Gatsby!</b>
+        </h1>
+        <p className={styles.intro}>
+          <b>Example pages:</b>{" "}
+          {samplePageLinks.map((link, i) => (
+            <React.Fragment key={link.url}>
+              <Link to={link.url}>{link.text}</Link>
+              {i !== samplePageLinks.length - 1 && <> · </>}
+            </React.Fragment>
+          ))}
+          <br />
+          Edit <code>src/pages/index.js</code> to update this page.
+        </p>
+      </div>
+      <ul className={styles.list}>
+        {links.map(link => (
+          <li key={link.url} className={styles.listItem}>
+            <a
+              className={styles.listItemLink}
+              href={`${link.url}${utmParameters}`}
+            >
+              {link.text} ↗
+            </a>
+            <p className={styles.listItemDescription}>{link.description}</p>
+          </li>
         ))}
-        <br />
-        Edit <code>src/pages/index.js</code> to update this page.
-      </p>
-    </div>
-    <ul className={styles.list}>
-      {links.map(link => (
-        <li key={link.url} className={styles.listItem}>
-          <a
-            className={styles.listItemLink}
-            href={`${link.url}${utmParameters}`}
-          >
-            {link.text} ↗
-          </a>
-          <p className={styles.listItemDescription}>{link.description}</p>
-        </li>
+      </ul>
+      {moreLinks.map((link, i) => (
+        <React.Fragment key={link.url}>
+          <a href={`${link.url}${utmParameters}`}>{link.text}</a>
+          {i !== moreLinks.length - 1 && <> · </>}
+        </React.Fragment>
       ))}
-    </ul>
-    {moreLinks.map((link, i) => (
-      <React.Fragment key={link.url}>
-        <a href={`${link.url}${utmParameters}`}>{link.text}</a>
-        {i !== moreLinks.length - 1 && <> · </>}
-      </React.Fragment>
-    ))}
-  </Layout>
+    </Layout></>
 )
 
 /**
